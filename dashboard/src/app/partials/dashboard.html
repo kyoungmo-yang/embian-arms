@@ -1,0 +1,93 @@
+<div class="submenu-controls">
+  <div class="submenu-panel" ng-controller="SubmenuCtrl" ng-repeat="pulldown in dashboard.current.pulldowns | filter:{ enable: true }">
+    <div class="submenu-panel-title">
+      <span class="small"><strong>{{pulldown.type}}:</strong></span>
+    </div>
+    <div class="submenu-panel-wrapper">
+      <kibana-simple-panel type="pulldown.type" ng-cloak></kibana-simple-panel>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<div class="clearfix"></div>
+<div class="container-fluid main">
+  <div>
+    <div class="grafana-container container">
+	  <table width="100%">
+		<tr><td colspan='3'>
+			<div style="width:100%" class="kibana-row" ng-controller="RowCtrl" ng-show="dashboard.current.header">
+				<div class="row-control">
+					<div ng-repeat="(name, panel) in dashboard.current.header.panels|filter:isPanel" ng-hide="panel.hide" class="panel nospace" ng-style="{'width':!panel.span?'100%':(panel.span/1.2)*10+'%'}" data-drop="true" ng-model="row.panels">
+						<!-- Content Panel -->
+						<div style="position:relative">
+							<kibana-panel type="panel.type" ng-cloak></kibana-panel>
+						</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			<div >
+			</div>
+		</td></tr>
+	  	<tr>
+			<!-- Navigation -->
+	  		<td valign="top" ng-controller="DashCtrl" style="min-width:{{dashboard.current.lnav.width}};">
+			      <!-- Rows -->
+		        <div class="kibana-row" ng-controller="RowCtrl" ng-repeat="(row_name, row) in dashboard.current.lnav.rows" ng-style="row_style(row)" ng-show="dashboard.current.lnav">
+		  		<!-- <span style="font-size:20px;" ng-model="rowTitle" ng-value="row"><b>{{row.title}}</b></span> -->
+		          <div class="row-control" >
+		              <div ng-repeat="(name, panel) in row.panels|filter:isPanel" ng-hide="panel.hide" class="panel nospace" ng-style="{'width':!panel.span?'100%':(panel.span/1.2)*10+'%'}" data-drop="true" ng-model="row.panels">
+		                <!-- Content Panel -->
+		                <div style="position:relative;">
+		                  <kibana-panel type="panel.type" ng-cloak></kibana-panel>
+		                </div>
+		              </div>
+		              <div class="clearfix"></div>
+		  			  <div style="margin-top:20px;"></div>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+				
+	  		</td>
+			<td><div ng-if="dashboard.current.lnav"><div style="margin-right:20px;"></div></td>
+			<!-- Contents -->
+			<td valign="top">
+			      <!-- Rows -->
+		        <div class="kibana-row" ng-controller="RowCtrl" ng-repeat="(row_name, row) in dashboard.current.rows" ng-style="row_style(row)">
+		  		<!-- <span class="ng-scope" style="font-size:20px;"><b>{{row.title}}</b></span> -->
+		          <div class="row-control">			
+		              <div ng-repeat="(name, panel) in row.panels|filter:isPanel" ng-hide="panel.hide" class="panel nospace" ng-style="{'width':!panel.span?'100%':(panel.span/1.2)*10+'%'}" data-drop="true" ng-model="row.panels">
+		                <!-- Content Panel -->
+		                <div style="position:relative">
+		                  <kibana-panel type="panel.type" ng-cloak></kibana-panel>
+		                </div>
+		              </div>
+		              <div class="clearfix"></div>
+		  			<div style="margin-top:20px;"></div>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+			</td>
+	  	</tr>
+	  </table>
+      <!-- Rows -->
+      <!-- <div class="kibana-row" ng-controller="RowCtrl" ng-repeat="(row_name, row) in dashboard.current.rows" ng-style="row_style(row)">
+		<span style="font-size:20px;"><b>{{row.title}}</b></span>
+        <div class="row-control">
+            <div ng-repeat="(name, panel) in row.panels|filter:isPanel" ng-hide="panel.hide" class="panel nospace" ng-style="{'width':!panel.span?'100%':(panel.span/1.2)*10+'%'}" data-drop="true" ng-model="row.panels">
+              <div style="position:relative">
+                <kibana-panel type="panel.type" ng-cloak></kibana-panel>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+			<div style="margin-top:20px;"></div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>

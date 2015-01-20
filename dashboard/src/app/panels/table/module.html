@@ -1,0 +1,22 @@
+<div ng-controller='table' ng-init="init()">
+	<div style="text-align:right;"><a class="link" config-modal="app/panels/table/detailview.html" ng-click="showdetail()">more...</a></div>
+	<!-- table style="width:100%; table-layout:fixed; background-color:#323232; color:#ffffff;" class='table table-striped table-unpadded' -->
+	<table style="width:100%; table-layout:fixed;" class='table table-striped table-unpadded'>
+	  <thead>
+		<th ng-repeat="column in panel.columns" ng-style="{'text-align':'center', 'width':column.width}" ng-show="column.type!='operand'">{{column.name}}</th>
+	  </thead>
+	  <tbody>
+	    <tr ng-repeat="row in rows" ng-style="{'color':row.color}">
+		  	<td ng-style="{'text-align':text_align(column)}" ng-repeat="column in panel.columns">
+			  <div ng-if="column.type == 'link'">
+				  <a href="{{column.to}}/sub{{link_params(row, $index)}}">{{row[$index]}}</a>
+			  </div>
+			  
+			  <div ng-if="column.type != 'modal' && column.type != 'link'  && column.type != 'operand'">
+				 {{row[$index]}}
+			  </div>
+		  </td>
+		</tr>
+	  </tbody>
+	</table>
+</div>

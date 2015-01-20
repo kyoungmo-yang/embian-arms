@@ -1,0 +1,19 @@
+<style type="text/css">
+.sbservice-container{
+	padding: 0;
+/*	background: #1f1f1f;*/
+	margin: 5px
+}
+
+.sbservice-content{
+	padding:0 10px 5px 10px
+}
+
+</style>
+<div ng-controller='dashheader' ng-init="init()">
+	<div class="sbservice-container" ng-show="{{dashboard.current.dashname}} != search">
+		<div style="border-bottom: 1px #eee solid;">
+			<span style="font-size:10pt;" ng-repeat="history in histories"><a href="#{{dashboard.current.history_paths.main_page}}">{{history.dn}}</a></span>
+		</div>
+	</div>
+</div>

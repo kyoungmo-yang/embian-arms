@@ -1,0 +1,44 @@
+<style type="text/css">
+.sbservice-container{
+	padding: 0;
+/*	background: #1f1f1f;*/
+	margin: 5px
+}
+
+.sbservice-content{
+	padding:0 10px 5px 10px
+}
+
+</style>
+<div ng-controller='sbservices' ng-init="init()" style="">
+	<div ng-controller='sbservice' class="panel nospace span1" ng-init="init()" ng-repeat="panel in services">
+		<a href='{{panel.href}}'>
+			<div class="sbservice-container" style="padding:9px;">
+				<span class="panel-text panel-title">{{panel.title}}</span>
+				<table border="0" width="150px">
+					<tr>
+						<td valign="top">
+							<div ng-style="{'margin-left':'5px', 'background-image': 'url('+panel.icon+')', 'width':'60px', 'height':'60px'}"></div>
+							<div>
+								<table border="0">
+									<tr>
+										<td><div ng-style="{'margin-top':'5px;', 'background-image': 'url('+_icon(status, 'l1')+')', 'width':'15px', 'height':'15px'}"></div></td>
+										<td><div ng-style="{'margin-top':'5px;', 'background-image': 'url('+_icon(status, 'l2')+')', 'width':'15px', 'height':'15px'}"></div></td>
+										<td><div ng-style="{'margin-top':'5px;', 'background-image': 'url('+_icon(status, 'l3')+')', 'width':'15px', 'height':'15px'}"></div></td>
+										<td><div ng-style="{'margin-top':'5px;', 'background-image': 'url('+_icon(status, 'l4')+')', 'width':'15px', 'height':'15px'}"></div></td>
+									</tr>
+								</table>
+							</div>
+						</td>
+						<td valign="top" align="right"><div>
+							<span style="font-size:8pt;"> 정상: {{status.l1}}/{{status.tot}}</span><br/>
+							<span style="font-size:8pt;"> 주의: {{status.l2}}/{{status.tot}}</span><br/>
+							<span style="font-size:8pt;"> 경고: {{status.l3}}/{{status.tot}}</span><br/>
+							<span style="font-size:8pt;"> 위험: {{status.l4}}/{{status.tot}}</span><br/>
+						</div></td>
+					</tr>
+				</table>
+			</div>
+		</a>
+	</div>
+</div>

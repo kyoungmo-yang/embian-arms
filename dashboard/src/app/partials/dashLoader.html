@@ -1,0 +1,19 @@
+<style>
+  .noarrow>a:after {
+    display: none !important;
+  }
+</style>
+
+<li ng-repeat="pulldown in dashboard.current.nav" ng-controller="PulldownCtrl" ng-show="pulldown.enable"><kibana-simple-panel type="pulldown.type" ng-cloak></kibana-simple-panel></li>
+
+<li class="grafana-menu-edit"><a bs-tooltip="'Goto Search Logs'" data-placement="bottom" href='#/dashboard'>
+  <i class='icon-search pointer icon-large' style="color:#ff7518;">&nbsp;<font color="#ff7518" size="2">Search</font></i>
+</a></li>
+
+<li class="grafana-menu-home"><a bs-tooltip="'Goto Dashboard'" data-placement="bottom" href='#{{dashboard.current.history_paths.main_page}}'>
+  <i class='icon-bar-chart icon-large'>&nbsp;<font size="2">Dashboard</font></i>
+</a></li>
+
+<li class="grafana-menu-edit" bs-tooltip="'Configure Alerts'" data-placement="bottom"><a class="link" config-modal="app/partials/settings.html" ng-click="show_settings()">
+  <i class='icon-cog pointer icon-large'>&nbsp;<font size="2">Configure</font></i>
+</a></li>

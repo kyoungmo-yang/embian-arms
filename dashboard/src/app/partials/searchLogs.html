@@ -1,0 +1,84 @@
+<style> 
+  .highlight { background-color: darkorchid; color: white; font-weight:bold;}
+</style>
+
+<div ng-controller="search">
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="reload()">X</button>
+  <h3>Search Log</h3>
+</div>
+
+<div class="modal-body" ng-init="init()" style="width:95%; overflow:hidden;">
+ <div class="row-fluid" style="margin-top:5px">
+   <div class="span12 alert-error panel-error small" ng-show="error">
+      <a class="close" ng-click="error=false">&times;</a>
+      <span><i class="icon-exclamation-sign"></i> <strong>Oops!</strong> {{error}} </span>
+   </div>
+ </div>
+
+  <div style="margin: 0 auto;">
+    <label class="small">Period Setting</label>
+    <div style="float:left;" ng-include="'app/panels/apidetail/timepicker.html'"></div>
+    <!-- div style="float:left; margin-left:15px;">
+      <label class="small">Log Type</label>
+      <select class="input-large" ng-model="log_type_select" ng-options="f for f in logtypes" ng-change="set_logtype()"></select>
+    </div -->
+  </div>
+ 
+  <div class="clearfix"> </div>
+ 
+  <label class="small" style="margin-top:10px;">Keyword
+    <span style="font-size:20px" ng-show="loading==true">
+      <i class="icon-spinner icon-spin icon-large"></i>
+    </span>
+  </label>
+    
+  <input type="hidden" id="keywords-tmp" />
+    
+  <div width="95%" class="ng-isolate-scope ng-pristine ng-untouched ng-valid">
+	<table border="0" width="90%">
+	  <tr>
+		<td>
+		  <div class="bootstrap-tagsinput" style="width:97%;">
+			<input id="__search_input" autofocus type="text" ng-model="__keyword" ng-keyup="handle_keyword($event)" placeholder="add keyword" style="width:99% !important;">
+			<div style="background-color:#eee;">
+			  <span class="tag label label-tag" ng-repeat="tag in tag_display">{{tag}}<span data-role="remove" ng-click="tag_display.splice($index, 1) && keywords.splice($index, 1)"></span></span>
+			</div>
+		  </div>
+		</td>
+		<td>
+		  <div style="margin-bottom:10px; margin-right:10px;">
+			<i class='icon-search pointer' ng-click="get_data(keywords)"></i>
+		  </div>
+		</td>
+	  </tr>
+    </table>
+  </div>
+ 
+  <div class="search-results-container" style="background-color:#ffffff; width:70%; padding: 10px;" ng-show="show_keyword_list">
+    <span style="font-size:9pt;">please selection of field.</span>
+    <div style="margin-top:15px;">
+      <div class="search-result-item pointer" style="margin-bottom:5px;" bindonce ng-repeat="column in columns">
+        <a class="ssearch-result-tag label label-tag" ng-click="add_keyword(column.name, __keyword)">
+          <i class="icon  icon-plus"></i>
+          <span>{{column.name}}: &nbsp;<font style="font-weight:normal; color:#464646;">{{__keyword}}</font></span>
+        </a>
+      </div>
+    </div>
+  </div>
+ 
+  <div ng-show="!loading && columnShow">
+    <div class="kibana-row" ng-controller="RowCtrl" ng-repeat="(row_name, row) in search_table" ng-style="row_style(row)">
+      <div class="row-control">			
+        <div ng-repeat="(name, panel) in row.panels|filter:isPanel" ng-hide="panel.hide" class="nospace" ng-style="{'width':!panel.span?'100%':(panel.span/1.2)*10+'%'}" data-drop="true" ng-model="row.panels">
+          <div style="position:relative">
+            <kibana-panel type="panel.type" ng-cloak></kibana-panel>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+	  <div style="margin-top:20px;"></div>
+    </div>
+  </div>
+ </div>
+</div>
+

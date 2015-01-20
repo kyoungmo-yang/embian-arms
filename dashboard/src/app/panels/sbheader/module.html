@@ -1,0 +1,40 @@
+<style type="text/css">
+.sbservice-container{
+	padding: 0;
+/*	background: #1f1f1f;*/
+	margin: 5px
+}
+
+.sbservice-content{
+	padding:0 10px 5px 10px
+}
+
+</style>
+<div ng-controller='sbheader' ng-init="init()">
+	<div class="sbservice-container">
+		<table border="0" width="100%">
+			<tr>
+				<td>
+					<div style="border-bottom: 1px #eee solid;">
+						<span style="font-size:10pt;" ng-repeat="history in histories">
+							<!-- a href="#{{history.path}}">{{history.dashname}}<small ng-show="history.type!='1'"> ({{history.name}})</small></a><b ng-show="!$last"> ▶</b -->
+							<a href="#{{path(history.t)}}">{{history.dn}}<small ng-show="history.t!='1'"> ({{history.n}})</small></a><b ng-show="!$last"> ▶</b> 
+						</span>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td><span style="font-size:20px;">{{dashboard.current.header.title}}&nbsp;&nbsp;</span></td>
+				<td><a class="link" ng-click="show_allview()">[전체보기]</a>&nbsp;&nbsp;</td>
+				<td>상태: </td>
+				<td><div ng-style="{'margin-right':'10px', 'background-image': 'url('+status.color+')', 'width':'15px', 'height':'15px'}"></div></td>
+				<td><span style="font-size:10pt;"> 정상: {{status.l1}}/{{status.tot}}, </span>&nbsp;&nbsp;</td>
+				<td><span style="font-size:10pt;"> 주의: {{status.l2}}/{{status.tot}}, </span>&nbsp;&nbsp;</td>
+				<td><span style="font-size:10pt;"> 경고: {{status.l3}}/{{status.tot}}, </span>&nbsp;&nbsp;</td>
+				<td><span style="font-size:10pt;"> 위험: {{status.l4}}/{{status.tot}}</span></td>
+			</tr>
+		</table>
+	</div>
+</div>

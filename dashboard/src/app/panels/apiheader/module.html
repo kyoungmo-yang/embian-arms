@@ -1,0 +1,32 @@
+<style type="text/css">
+.sbservice-container{
+	padding: 0;
+/*	background: #1f1f1f;*/
+	margin: 5px
+}
+
+.sbservice-content{
+	padding:0 10px 5px 10px
+}
+
+</style>
+<div ng-controller='apiheader' ng-init="init()">
+	<div class="sbservice-container">
+		<table border="0" width="100%">
+			<tr>
+				<td>
+					<div style="border-bottom: 1px #eee solid;">
+						<span style="font-size:10pt;" ng-repeat="history in histories">
+							<a href="#{{path(history.t)}}">{{history.dn}}<small ng-show="!$last"> ({{history.n}})</small></a> <b ng-show="!$last"> ▶</b> 
+						</span>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td><span style="font-size:20px;">{{dashboard.current.header.title}}&nbsp;&nbsp;</span></td>
+			</tr>
+		</table>
+	</div>
+</div>

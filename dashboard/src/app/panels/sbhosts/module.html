@@ -1,0 +1,27 @@
+<style type="text/css">
+.sbservice-container{
+	padding: 0;
+/*	background: #1f1f1f;*/
+	margin: 5px
+}
+
+.sbservice-content{
+	padding:0 10px 5px 10px
+}
+
+</style>
+<div ng-controller='sbhosts' ng-init="init()">
+	<div class="sbservice-container">
+		<div ng-repeat="host in hosts">
+			<a class="link" ng-click="select(host)">
+			<table border="0">
+				<tr>
+					<td><i class="icon-check" ng-show="host.selected"></i></td>
+					<td>{{host.hostname}}</td>
+					<td><div ng-style="{'margin-left':'10px', 'background-image': 'url('+status_color(host.hostname)+')', 'width':'15px', 'height':'15px'}"></div></td>
+				</tr>
+			</table>
+			</a>
+		</div>
+	</div>
+</div>

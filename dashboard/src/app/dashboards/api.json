@@ -1,0 +1,262 @@
+{
+  "title": "API Response Monitoring: API",
+  "style": "light",
+  "refresh": "1m",
+  "dashname": "API",
+  "history_paths":{
+    "search_page":"/dashboard/file/search.json",
+	"main_page":"/dashboard/file/main.json",
+	"service_page":"/dashboard/file/service.json/sub",
+	"api_page":"/dashboard/file/api.json/sub"
+  },
+  "index": {
+    "interval": "none",
+    "pattern": "[logstash-]YYYY.MM.DD",
+    "default": "srm",
+    "warm_fields": false
+  },
+  "services": {
+    "filter": {
+        "list": {
+  		  "0": {
+  			  "active": true,
+  			  "type": "range",
+  			  "field": "timestamp",
+  		      "from": 1415611166,
+  		      "to": 1415611176
+  		  }
+      },
+      "ids": ["0"],
+      "time": {
+        "from": "now-1h",
+        "to": "now"
+      }
+    },
+    "query": {
+		"list": {
+		  "0": {
+		    "query": "",
+		    "alias": "",
+		    "color": "#7EB26D",
+		    "id": 0,
+		    "pin": false,
+		    "type": "lucene",
+		    "enable": true
+		  }
+		},
+		"ids": [
+		  0
+		]
+	}
+  },
+  "header": {
+	  "title": "{{ARGS.request}}",
+	  "panels": [
+		  {
+			  "span": 12,
+			  "type": "apiheader",
+			  "source": {}
+		  }
+	  ]
+  },
+  "rows": [
+    {
+      "height": "200px",
+      "panels": [
+        {
+          "span": 12,
+          "type": "apidetail",
+		  "tabs": ["평균 응답시간", "누적 호출건수", "누적 응답사이즈"],
+		  "filters": {"f1":[], "f2":[], "f3":["1m", "30m", "1h", "1d"], "f4":["Last 5m", "Last 15m", "Last 1h", "Last 2h", "Last 3h", "Last 6h", "Last 12h", "Last 24h", "Last 2d", "Custom"]},
+		  "source": {
+			  "column": "hostname",
+			  "series": "dash.service.request_cnt",
+			  "rawQuery":true,
+			  "cache": true,
+			  
+			  "query": "select distinct(hostname) as hostname from dash.service.request_cnt where service='{{ARGS.service}}'"
+		  },
+		  "graphs": [
+			  {
+				  "editable": false,
+				  "span": 12,
+				  "type":"graph",
+				  "datasource": "influxdb",
+				  "height": "500px",
+				  "targets": [
+				              {
+				                "target": "randomWalk('random walk')",
+								"series": "service.log",
+				                "function": "max",
+				                "column": "request_time",
+								
+								"groupby_field_add": true,
+					            "groupby_field": "{{ARGS.hostname ? 'request' : 'hostname'}}",
+								
+								"fixed_conditions": "service='{{ARGS.service}}' and request = '{{ARGS.request}}'",
+								
+					            "condition_filter": true,
+								
+					            "condition_key": "hostname",
+					            "condition_op": "=",
+					            "condition_value": "'{{ARGS.hostname}}'",
+								
+								"interval": "1m",
+				                "query": "",
+								"cache": true
+				              }
+				            ],
+					"legend": {
+					            "show": true,
+					            "values": true,
+					            "min": true,
+					            "max": true,
+					            "current": true,
+					            "total": false,
+					            "avg": true
+					          }
+			  },{
+				  "editable": false,
+				  "span": 12,
+				  "type":"graph",
+				  "datasource": "influxdb",
+				  "height": "500px",
+				  "targets": [
+				              {
+  				                "target": "randomWalk('random walk')",
+  								"series": "service.log",
+  				                "function": "count",
+  				                "column": "request",
+								
+  								"groupby_field_add": true,
+					            "groupby_field": "{{ARGS.hostname ? 'request' : 'hostname'}}",
+								
+  								"fixed_conditions": "service='{{ARGS.service}}' and request = '{{ARGS.request}}'",
+								
+  					            "condition_filter": true,
+								
+  					            "condition_key": "hostname",
+  					            "condition_op": "=",
+  					            "condition_value": "'{{ARGS.hostname}}'",
+								
+  								"interval": "1m",
+  				                "query": "",
+								"cache": true
+				              }
+				            ],
+					"legend": {
+					            "show": true,
+					            "values": true,
+					            "min": true,
+					            "max": true,
+					            "current": true,
+					            "total": false,
+					            "avg": true
+					          }
+			  },{
+				  "editable": false,
+				  "span": 12,
+				  "type":"graph",
+				  "datasource": "influxdb",
+				  "height": "500px",
+				  "targets": [
+				              {
+  				                "target": "randomWalk('random walk')",
+  								"series": "service.log",
+  				                "function": "max",
+  				                "column": "bytes_sent",
+								
+  								"groupby_field_add": true,
+					            "groupby_field": "{{ARGS.hostname ? 'request' : 'hostname'}}",
+								
+  								"fixed_conditions": "service='{{ARGS.service}}' and request = '{{ARGS.request}}'",
+								
+  					            "condition_filter": true,
+								
+  					            "condition_key": "hostname",
+  					            "condition_op": "=",
+  					            "condition_value": "'{{ARGS.hostname}}'",
+								
+  								"interval": "1m",
+  				                "query": "",
+								"cache": true
+				              }
+				            ],
+					"legend": {
+					            "show": true,
+					            "values": true,
+					            "min": true,
+					            "max": true,
+					            "current": true,
+					            "total": false,
+					            "avg": true
+					          }
+			  },{
+				  "editable": false,
+				  "span": 12,
+				  "type":"graph",
+				  "datasource": "influxdb",
+				  "height": "500px",
+				  "targets": [
+				              {
+  				                "target": "randomWalk('random walk')",
+  								"series": "error.log",
+  				                "function": "count",
+  				                "column": "hostname",
+								
+  								"groupby_field_add": true,
+					            "groupby_field": "hostname",
+								
+  								"fixed_conditions": "service='{{ARGS.service}}'",
+								
+  					            "condition_filter": true,
+								
+  					            "condition_key": "hostname",
+  					            "condition_op": "=",
+  					            "condition_value": "'{{ARGS.hostname}}'",
+								
+  								"interval": "1m",
+  				                "query": ""
+				              }
+				            ],
+					"legend": {
+					            "show": true,
+					            "values": true,
+					            "min": true,
+					            "max": true,
+					            "current": true,
+					            "total": false,
+					            "avg": true
+					          }
+			  }
+		  ]
+        }
+      ]
+    }
+  ],
+  "nav": [
+    {
+      "type": "timepicker",
+      "collapse": false,
+      "notice": false,
+      "enable": true,
+      "status": "Stable",
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+		"2h",
+		"3h",
+        "6h",
+        "12h",
+        "24h"
+      ],
+      "refresh_intervals": [
+        "10s",
+        "30s",
+        "1m"
+      ],
+      "now": true
+    }
+  ]
+}
