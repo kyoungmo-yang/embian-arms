@@ -69,7 +69,7 @@ RUN \
 # 7. Install dashboard
 ##############################################
 RUN mkdir -p /var/www/dashboard
-ADD dashboard/dashboard.tar.gz /var/www/dashboard
+ADD dashboard.tar.gz /var/www/dashboard
 
 ##############################################
 # 8. Install cep-engine
@@ -80,7 +80,7 @@ RUN apt-get update && \
     mkdir -p /opt/cep-engine-service
 
 
-ADD cep-engine/cep-engine-service.tar.gz /opt/cep-engine-service
+ADD cep-engine-service.tar.gz /opt/cep-engine-service
 RUN chown root:root -R /opt/cep-engine-service && \
     cd /opt/cep-engine-service && \
     mvn clean package && \
