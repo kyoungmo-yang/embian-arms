@@ -1,4 +1,4 @@
-Embian ARMS(API Response Monitoring System) Dockerfile
+Embian ARMS(API Response Monitoring System)
 =====================
 Embian ARMS is a Log-Based API Monitoring System, it is consist of [influxdb](http://influxdb.com/), [elasticsearch](http://www.elasticsearch.org/), cep-engine, dashboard, [rabbitmq](https://www.rabbitmq.com/), [memcached](http://memcached.org/), [fluentd](http://fluentd.org) and [nginx](http://nginx.org/).
 
